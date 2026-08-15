@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junayed Ali Khan — Software Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --display: "Space Grotesk", sans-serif;
+        --body: "Inter", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+        --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+
+      html[data-theme="dark"] {
+        --bg: #0a0a0a;
+        --fg: #f5f5f2;
+        --fg-dim: #8a8a86;
+        --fg-faint: #4a4a47;
+        --line: #232322;
+        --line-bright: #3a3a38;
+      }
+      html[data-theme="light"] {
+        --bg: #fafaf8;
+        --fg: #131311;
+        --fg-dim: #6b6b66;
+        --fg-faint: #a8a8a2;
+        --line: #e4e4e0;
+        --line-bright: #cfcfc9;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        width: 100%;
+      }
+
+      body {
+        width: 100%;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--body);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        transition:
+          background 0.4s var(--ease),
+          color 0.4s var(--ease);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      ::selection {
+        background: var(--fg);
+        color: var(--bg);
+      }
+
+      /* ---- functional sidebar nav ---- */
+      .rail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 84px;
+        border-right: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 0 32px;
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--fg-faint);
+        letter-spacing: 0.05em;
+        z-index: 50;
+        background: var(--bg);
+        transition:
+          background 0.4s var(--ease),
+          border-color 0.4s var(--ease);
+      }
+      @media (max-width: 900px) {
+        .rail {
+          display: none;
+        }
+      }
+
+      .rail-top {
+        writing-mode: vertical-rl;
+        text-transform: uppercase;
+      }
+
+      .rail-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+      }
+      .rail-nav button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 4px;
+        color: var(--fg-faint);
+        font-family: var(--mono);
+      }
+      .rail-nav .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--fg-faint);
+        transition:
+          background 0.3s var(--ease),
+          transform 0.3s var(--ease),
+          box-shadow 0.3s var(--ease);
+      }
+      .rail-nav .lbl {
+        writing-mode: vertical-rl;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition:
+          opacity 0.25s var(--ease),
+          transform 0.25s var(--ease),
+          color 0.25s var(--ease);
+      }
+      .rail-nav button:hover .lbl {
+        opacity: 0.6;
+        transform: translateY(0);
+      }
+      .rail-nav button.active .dot {
+        background: var(--fg);
+        transform: scale(1.6);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--fg) 12%, transparent);
+      }
+      .rail-nav button.active .lbl {
+        opacity: 1;
+        transform: translateY(0);
+        color: var(--fg);
+      }
+
+      .rail-bottom {
+        writing-mode: vertical-rl;
+      }
+
+      .wrap {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 clamp(24px, 5vw, 72px);
+      }
+      @media (min-width: 901px) {
+        .wrap {
+          margin-left: 84px;
+          max-width: calc(1400px + 84px);
+        }
+      }
+
+      header.top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 0;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg-dim);
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      header.top .status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dot-live {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--fg);
+        animation: pulse 2.4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.25;
+        }
+      }
+
+      .top-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .theme-toggle {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--fg-dim);
+        background: transparent;
+        border: 1px solid var(--line-bright);
+        border-radius: 20px;
+        padding: 6px 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        transition:
+          color 0.25s var(--ease),
+          border-color 0.25s var(--ease),
+          opacity 0.25s var(--ease),
+          transform 0.25s var(--ease);
+      }
+      .theme-toggle:hover {
+        opacity: 0.7;
+        transform: translateY(-1px);
+      }
+      .theme-toggle:active {
+        transform: translateY(0) scale(0.97);
+      }
+      .theme-toggle .icon {
+        font-size: 12px;
+        line-height: 1;
+      }
+
+      .hero {
+        padding: clamp(56px, 11vw, 120px) 0 clamp(64px, 10vw, 120px);
+        border-bottom: 1px solid var(--line);
+      }
+      .prompt {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--fg-dim);
+        margin-bottom: 22px;
+      }
+      .prompt .caret {
+        display: inline-block;
+        width: 8px;
+        height: 15px;
+        background: var(--fg);
+        margin-left: 2px;
+        vertical-align: -2px;
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      h1.name {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(2.6rem, 7.4vw, 6.4rem);
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      h1.name .last {
+        color: var(--fg-dim);
+        font-weight: 300;
+      }
+
+      .role {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+        color: var(--fg-dim);
+        margin-top: 16px;
+      }
+
+      .bio {
+        max-width: 64ch;
+        margin-top: 28px;
+        color: var(--fg-dim);
+        font-size: clamp(14px, 1.1vw, 16px);
+      }
+
+      .hero-links {
+        display: flex;
+        gap: 22px;
+        margin-top: 40px;
+        font-family: var(--mono);
+        font-size: 12px;
+        flex-wrap: wrap;
+      }
+      .hero-links a {
+        color: var(--fg);
+        border-bottom: 1px solid var(--line-bright);
+        padding-bottom: 3px;
+        transition:
+          opacity 0.25s var(--ease),
+          border-color 0.25s var(--ease),
+          transform 0.25s var(--ease);
+        display: inline-block;
+      }
+      .hero-links a:hover {
+        opacity: 0.55;
+        transform: translateY(-1px);
+        border-color: var(--fg);
+      }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg-faint);
+        margin-bottom: 28px;
+        padding-top: 64px;
+      }
+
+      section {
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 72px;
+      }
+      section:last-of-type {
+        border-bottom: none;
+      }
+
+      h2.section-title {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+        letter-spacing: -0.02em;
+        margin-bottom: 44px;
+      }
+
+      /* WORK */
+      .project {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        gap: 28px;
+        padding: 32px 0;
+        border-top: 1px solid var(--line);
+        transition:
+          opacity 0.3s var(--ease),
+          transform 0.35s var(--ease),
+          padding-left 0.35s var(--ease);
+      }
+      .project:hover {
+        opacity: 0.88;
+        padding-left: 6px;
+      }
+      .project:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      @media (max-width: 560px) {
+        .project {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+      }
+
+      .project .yr {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg-faint);
+        padding-top: 4px;
+      }
+
+      .project h3 {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+        letter-spacing: -0.01em;
+      }
+      .project .desc {
+        color: var(--fg-dim);
+        font-size: 14.5px;
+        margin-top: 8px;
+        max-width: 68ch;
+      }
+      .project ul.points {
+        margin-top: 12px;
+        padding-left: 0;
+        list-style: none;
+      }
+      .project ul.points li {
+        color: var(--fg-dim);
+        font-size: 13.5px;
+        margin-top: 7px;
+        padding-left: 16px;
+        position: relative;
+        max-width: 68ch;
+      }
+      .project ul.points li::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: var(--fg-faint);
+      }
+      .project .tags {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+      .project .tags span {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--fg-dim);
+        border: 1px solid var(--line-bright);
+        padding: 3px 9px;
+        border-radius: 3px;
+        transition:
+          border-color 0.25s var(--ease),
+          color 0.25s var(--ease);
+      }
+      .project:hover .tags span {
+        border-color: var(--fg-dim);
+      }
+      .project .links {
+        display: flex;
+        gap: 20px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+      }
+      .project .go {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg);
+        display: inline-block;
+        border-bottom: 1px solid var(--line-bright);
+        padding-bottom: 2px;
+        transition:
+          opacity 0.25s var(--ease),
+          border-color 0.25s var(--ease),
+          transform 0.25s var(--ease);
+      }
+      .project .go:hover {
+        opacity: 0.6;
+        transform: translateY(-1px);
+        border-color: var(--fg);
+      }
+      .project .go::after {
+        content: " →";
+      }
+
+      /* EXPERIENCE */
+      .job {
+        padding: 30px 0;
+        border-top: 1px solid var(--line);
+        transition: padding-left 0.35s var(--ease);
+      }
+      .job:hover {
+        padding-left: 6px;
+      }
+      .job:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .job-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+      .job-head h3 {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 1.2rem;
+      }
+      .job-head .period {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--fg-faint);
+      }
+      .job .role-line {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg-dim);
+        margin-bottom: 12px;
+      }
+      .job ul.points {
+        padding-left: 0;
+        list-style: none;
+      }
+      .job ul.points li {
+        color: var(--fg-dim);
+        font-size: 13.5px;
+        margin-top: 8px;
+        padding-left: 16px;
+        position: relative;
+        max-width: 70ch;
+      }
+      .job ul.points li::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: var(--fg-faint);
+      }
+
+      /* ABOUT / STACK */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 56px;
+      }
+      @media (max-width: 700px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .about-text {
+        color: var(--fg-dim);
+        font-size: 15px;
+        max-width: 60ch;
+      }
+      .about-text p + p {
+        margin-top: 16px;
+      }
+
+      .stack-list {
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+      .stack-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+        color: var(--fg-dim);
+        transition: padding-left 0.25s var(--ease);
+      }
+      .stack-row:hover {
+        padding-left: 4px;
+      }
+      .stack-row:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .stack-row .k {
+        color: var(--fg-faint);
+        white-space: nowrap;
+      }
+      .stack-row .v {
+        color: var(--fg);
+        text-align: right;
+      }
+
+      /* CONTACT */
+      .contact h2.section-title {
+        margin-bottom: 18px;
+      }
+      .contact p {
+        color: var(--fg-dim);
+        max-width: 52ch;
+        margin-bottom: 36px;
+      }
+
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .contact-links a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        border-top: 1px solid var(--line);
+        font-family: var(--display);
+        font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+        transition:
+          padding-left 0.3s var(--ease),
+          opacity 0.25s var(--ease);
+        gap: 12px;
+      }
+      .contact-links a:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .contact-links a:hover {
+        padding-left: 12px;
+        opacity: 0.8;
+      }
+      .contact-links .arrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg-faint);
+        text-align: right;
+        word-break: break-all;
+      }
+
+      footer {
+        padding: 40px 0 64px;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--fg-faint);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.7s var(--ease),
+          transform 0.7s var(--ease);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .dot-live,
+        .caret,
+        .reveal {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
+      :focus-visible {
+        outline: 1px solid var(--fg);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="rail">
+      <span class="rail-top"></span>
+      <div class="rail-nav" id="railNav">
+        <button data-target="#work" class="active">
+          <span class="dot"></span><span class="lbl">WORK</span>
+        </button>
+        <button data-target="#experience">
+          <span class="dot"></span><span class="lbl">EXPERIENCE</span>
+        </button>
+        <button data-target="#about">
+          <span class="dot"></span><span class="lbl">ABOUT</span>
+        </button>
+        <button data-target="#contact">
+          <span class="dot"></span><span class="lbl">CONTACT</span>
+        </button>
+      </div>
+      <span class="rail-bottom"></span>
+    </nav>
+
+    <div class="wrap">
+      <header class="top">
+        <span>khan049.dev</span>
+        <div class="top-right">
+          <span class="status"
+            ><span class="dot-live"></span> open to work</span
+          >
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle light and dark mode"
+          >
+            <span class="icon" id="themeIcon">☾</span>
+            <span id="themeLabel">dark</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="prompt">
+          visitor@portfolio:~$ whoami<span class="caret"></span>
+        </div>
+        <h1 class="name">Junayed<br /><span class="last">Ali Khan</span></h1>
+        <div class="role">Software Developer — MERN Stack, Docker, AWS</div>
+        <p class="bio">
+          I build systems end to end — auth that doesn't leak, deployment
+          platforms that don't break, and matching engines that score what
+          actually matters. Comfortable across full stack, backend, cloud.
+        </p>
+        <div class="hero-links">
+          <a href="#work">Selected work</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Get in touch</a>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="eyebrow">// selected-work</div>
+        <h2 class="section-title">Things I've built</h2>
+
+        <div class="project reveal">
+          <div class="yr">2026</div>
+          <div>
+            <h3>Distributed CDN Simulator</h3>
+            <p class="desc">
+              A distributed CDN architecture with a consistent-hashing load
+              balancer, 3 edge servers, and 300 virtual nodes for request
+              routing and node-level failure handling.
+            </p>
+            <ul class="points">
+              <li>
+                Cache-aside caching with TTL and single-flight deduplication to
+                stop redundant origin requests on concurrent misses
+              </li>
+              <li>
+                Interactive monitoring dashboard — cache metrics, edge health,
+                hash-ring visualization, cache purge
+              </li>
+            </ul>
+            <div class="tags">
+              <span>Node.js</span><span>Express</span><span>React</span
+              ><span>Tailwind CSS</span><span>Docker</span><span>GitHub</span
+              ><span>Render</span><span>Vercel</span>
+            </div>
+            <div class="links">
+              <a
+                class="go"
+                href="https://cdn-simulator-bice.vercel.app/"
+                target="_blank"
+                >Live</a
+              >
+              <a
+                class="go"
+                href="https://github.com/khan049/cdn-simulator"
+                target="_blank"
+                >GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="project reveal">
+          <div class="yr">2026</div>
+          <div>
+            <h3>DeployForge</h3>
+            <p class="desc">
+              An end-to-end automated deployment platform inspired by Vercel —
+              one-click static site deploys straight from a GitHub repo, zero
+              manual steps.
+            </p>
+            <ul class="points">
+              <li>
+                Dockerized build server clones repos, resolves dependencies, and
+                produces optimized builds
+              </li>
+              <li>
+                AWS S3 for storage, AWS ECS for auto-scaling container
+                orchestration
+              </li>
+              <li>
+                Nginx reverse proxy for custom domain routing, Redis-backed job
+                queuing, WebSocket log streaming
+              </li>
+            </ul>
+            <div class="tags">
+              <span>Node.js</span><span>Docker</span><span>AWS S3/ECS</span
+              ><span>Redis</span><span>Nginx</span><span>WebSocket</span>
+            </div>
+            <div class="links">
+              <a
+                class="go"
+                href="https://github.com/khan049/DeployForge--Distributed-Frontend-Deployment-Platform"
+                target="_blank"
+                >GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="project reveal">
+          <div class="yr">2026</div>
+          <div>
+            <h3>Resume Processing & Candidate Matching Platform</h3>
+            <p class="desc">
+              A resume processing and matching system with role-based access
+              control across Admin, Recruiter, and Candidate roles.
+            </p>
+            <ul class="points">
+              <li>
+                JWT authentication and cloud-based storage on AWS S3, with
+                role-based access control across three user types
+              </li>
+              <li>
+                Async processing pipeline using background workers, plus a
+                weighted scoring engine matching resumes on skills, experience,
+                and education
+              </li>
+              <li>
+                Containerized the full application with Docker and Docker
+                Compose for reproducible environments and streamlined deploys
+              </li>
+            </ul>
+            <div class="tags">
+              <span>Node.js</span><span>Express.js</span><span>MongoDB</span
+              ><span>Docker</span><span>JWT</span><span>AWS S3/ECS/IAM</span>
+            </div>
+            <div class="links">
+              <a
+                class="go"
+                href="https://github.com/khan049/resume-matching-backend"
+                target="_blank"
+                >GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="project reveal">
+          <div class="yr">2025</div>
+          <div>
+            <h3>Socialify — Real-Time Social & Video Calling Platform</h3>
+            <p class="desc">
+              A full-stack social platform backend designed around user
+              authentication, social connections, and real-time communication.
+            </p>
+            <ul class="points">
+              <li>
+                Designed a scalable Node.js + Express REST API architecture with
+                clean separation of routes, controllers, models, and middleware
+                for maintainability.
+              </li>
+              <li>
+                Implemented secure authentication system using JWT (HTTP-only
+                cookies), bcrypt password hashing, and reusable protected route
+                middleware.
+              </li>
+              <li>
+                Built core social + real-time features, including friend-request
+                workflows, user management with MongoDB, and Stream Chat
+                integration for live communication.
+              </li>
+            </ul>
+            <div class="tags">
+              <span>Node.js</span><span>Express.js</span><span>MongoDB</span
+              ><span>Mongoose</span><span>JWT</span><span>bcrypt</span
+              ><span>Stream Chat</span>
+            </div>
+            <div class="links">
+              <a
+                class="go"
+                href="https://github.com/khan049/socialify-backend/"
+                target="_blank"
+                >GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="eyebrow">// experience</div>
+        <h2 class="section-title">Where I've worked</h2>
+
+        <div class="job reveal">
+          <div class="job-head">
+            <h3>Unified Mentor</h3>
+            <span class="period">Jan 2026 – Jun 2026</span>
+          </div>
+          <div class="role-line">
+            Full Stack Developer Intern · Remote, India
+          </div>
+          <ul class="points">
+            <li>
+              Engineered a production-grade full-stack app using Node.js,
+              Express.js, and Firebase for end-to-end appointment management
+              between students and teachers
+            </li>
+            <li>
+              Architected JWT-based authentication with secure login/signup
+              flows for stateless session management, closing off unauthorized
+              access vectors
+            </li>
+            <li>
+              Integrated Firebase Authentication and Firestore for real-time
+              data persistence and identity management across multiple user
+              roles
+            </li>
+          </ul>
+        </div>
+
+        <div class="job reveal">
+          <div class="job-head">
+            <h3>ThinkAgainLab</h3>
+            <span class="period">May 2024 – Jul 2024</span>
+          </div>
+          <div class="role-line">Flutter Developer Intern · Kolkata, India</div>
+          <ul class="points">
+            <li>
+              Developed and shipped cross-platform mobile apps using Flutter and
+              Dart, targeting Android and iOS from one codebase
+            </li>
+            <li>
+              Integrated third-party RESTful APIs and Firebase services (Auth,
+              Firestore, Realtime Database) for real-time sync and user
+              management
+            </li>
+            <li>
+              Built responsive, accessible UIs with custom Flutter widgets and
+              theme systems, consistent across device form factors
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="eyebrow">// about</div>
+        <h2 class="section-title">A bit more context</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I’m a Software Developer who enjoys building full-stack
+              applications and solving backend and system-design problems. I
+              like understanding how things work under the hood — from designing
+              APIs and data flows to building interfaces that turn those systems
+              into usable products. I’m looking for opportunities where I can
+              build real products, contribute across the stack, solve
+              challenging engineering problems, and keep growing as a developer.
+            </p>
+            <p>
+              Certified in Linux Essentials and Python Essentials through Cisco
+              Networking Academy & OpenEDG.
+            </p>
+          </div>
+          <div class="stack-list">
+            <div class="stack-row">
+              <span class="k">languages</span
+              ><span class="v">C, C++, Javascript, Python, Dart, R</span>
+            </div>
+            <div class="stack-row">
+              <span class="k">frameworks</span
+              ><span class="v">Node.js, Express, React, Flutter</span>
+            </div>
+            <div class="stack-row">
+              <span class="k">databases</span
+              ><span class="v">MongoDB, PostgreSQL, Firestore</span>
+            </div>
+            <div class="stack-row">
+              <span class="k">cloud/devops</span
+              ><span class="v">AWS, Docker, Nginx, Redis</span>
+            </div>
+            <div class="stack-row">
+              <span class="k">tools</span
+              ><span class="v">GitHub, Git, Postman, VS Code</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="eyebrow">// contact</div>
+        <h2 class="section-title">Let's talk</h2>
+        <p>
+          Open to full-stack, backend and devops roles, internships, and
+          interesting freelance work. Email's the fastest way to reach me.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:work.junayedalikhan@gmail.com"
+            >Email <span class="arrow">work.junayedalikhan@gmail.com</span></a
+          >
+          <a href="https://github.com/khan049" target="_blank"
+            >GitHub <span class="arrow">↗</span></a
+          >
+          <a href="https://linkedin.com/in/junayedalikhan" target="_blank"
+            >LinkedIn <span class="arrow">↗</span></a
+          >
+          <a href="https://x.com/JunayedAliKhan1" target="_blank"
+            >X <span class="arrow">↗</span></a
+          >
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 Junayed Ali Khan</span>
+        <span>built with care, no framework</span>
+      </footer>
+    </div>
+
+    <script>
+      // scroll reveal with stagger
+      const revealEls = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("in"), i * 60);
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      revealEls.forEach((el) => io.observe(el));
+
+      // theme toggle
+      const root = document.documentElement;
+      const toggleBtn = document.getElementById("themeToggle");
+      const icon = document.getElementById("themeIcon");
+      const label = document.getElementById("themeLabel");
+
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        icon.textContent = theme === "dark" ? "☾" : "☀";
+        label.textContent = theme;
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme");
+        applyTheme(current === "dark" ? "light" : "dark");
+      });
+
+      // sidebar scroll-spy nav
+      const sections = ["work", "experience", "about", "contact"].map((id) =>
+        document.getElementById(id),
+      );
+      const navButtons = document.querySelectorAll(".rail-nav button");
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = document.querySelector(btn.dataset.target);
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      const spy = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              navButtons.forEach((btn) => {
+                btn.classList.toggle("active", btn.dataset.target === "#" + id);
+              });
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -50% 0px", threshold: 0 },
+      );
+
+      sections.forEach((s) => s && spy.observe(s));
+    </script>
+  </body>
+</html>
